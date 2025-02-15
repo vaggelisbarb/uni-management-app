@@ -1,9 +1,9 @@
 ![Maven Build](https://github.com/vaggelisbarb/uni-management-app/actions/workflows/maven.yml/badge.svg)
 
-# **Department Management System**  
+# **University Management System**  
 
 ## **Project Overview**  
-The **Department Management System** is a web application designed to manage university departments, faculty members, students, courses, and research areas. It aims to provide an efficient way to handle academic and administrative operations within a university.  
+The **University Management System** is a web application designed to manage university departments, faculty members, students, courses, and research areas. It aims to provide an efficient way to handle academic and administrative operations within a university.  
 
 When completed, the system will allow users to:  
 - **Manage Departments:** Create, update, and delete departments with faculty, research areas, and budget allocations.  
