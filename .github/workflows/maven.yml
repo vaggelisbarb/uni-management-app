@@ -10,33 +10,35 @@ name: Maven Build and Test
 
 on:
   push:
-    branches: [ main, develop ]  # Runs on push to main and develop branches
+    branches: [ main, develop ]
   pull_request:
-    branches: [ main, develop ]  # Runs on pull requests to these branches
+    branches: [ main, develop ]
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Uses the latest Ubuntu runner
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4  # Checks out the repository code
+        uses: actions/checkout@v4
 
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'  # Use Eclipse Temurin JDK
-          java-version: '17'  # Set Java version (adjust if needed)
-          cache: 'maven'  # Enables Maven caching for dependencies
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'maven'
 
       - name: Build with Maven
-        run: mvn clean package -DskipTests  # Compiles the project and skips tests
+        run: mvn clean package -DskipTests
+        working-directory: uni-system  # ✅ Use the correct directory
 
       - name: Run Tests
-        run: mvn test  # Runs unit tests
+        run: mvn test
+        working-directory: uni-system  # ✅ Use the correct directory
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: application-jar
-          path: target/*.jar  # Uploads the JAR file as an artifact
+          path: uni-system/target/*.jar  # ✅ Adjust path based on your project structure
