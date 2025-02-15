@@ -1,3 +1,8 @@
+## 🚀 CI/CD Pipeline
+
+![Maven Build](https://github.com/vaggelisbarb/uni-management-app/actions/workflows/maven.yml/badge.svg)
+
+
 # **Department Management System**  
 
 ## **Project Overview**  
