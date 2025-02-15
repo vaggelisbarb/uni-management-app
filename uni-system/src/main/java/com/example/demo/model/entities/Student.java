@@ -5,6 +5,7 @@ import com.example.demo.model.embeddables.ContactInfo;
 import com.example.demo.model.embeddables.EnrollmentInfo;
 import com.example.demo.model.embeddables.PersonalInfo;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -17,17 +18,21 @@ public class Student {
     private Long id; // Unique identifier for the student (e.g., "S12345")
 
     @Embedded
+    @Valid
     private PersonalInfo personalInfo; // Personal information for the student
 
     @Embedded
+    @Valid
     private ContactInfo contactInfo; // // Embedded contact info
 
     @Embedded
+    @Valid
     private Address address; // Embedded address info
 
     private String nationality; // Nationality of the student
 
     @Embedded
+    @Valid
     private EnrollmentInfo enrollmentInfo; // Enrollment info for the student
 
     @ManyToOne
