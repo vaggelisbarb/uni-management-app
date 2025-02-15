@@ -13,7 +13,7 @@ public class Department {
     // Basic Information
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id; // Unique identifier for the department (e.g., "CS101")
+    private Long id; // Unique identifier for the department (e.g., "CS101")
 
     private String name; // Full name of the department (e.g., "Department of Computer Science")
     private String description; // Brief description of the department's purpose and focus
@@ -38,7 +38,7 @@ public class Department {
     @ElementCollection
     private List<String> degreePrograms; // List of degree programs offered (e.g., BSc, MSc, PhD)
 
-    @ElementCollection
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Course> coursesOffered; // List of courses available under this department
 
     @ElementCollection
@@ -56,30 +56,30 @@ public class Department {
 
     public Department() {}
 
-    public Department(List<String> affiliatedOrganizations, double budget, int foundedYear, String website, int studentCount, List<String> researchAreas, List<Course> coursesOffered, List<String> degreePrograms, ContactInfo contactInfo, Address address,String buildingLocation, Professor headOfDepartment, List<Professor> faculty, String description, String name, String id) {
-        this.affiliatedOrganizations = affiliatedOrganizations;
-        this.budget = budget;
-        this.foundedYear = foundedYear;
-        this.website = website;
-        this.studentCount = studentCount;
-        this.researchAreas = researchAreas;
-        this.coursesOffered = coursesOffered;
-        this.degreePrograms = degreePrograms;
-        this.contactInfo = contactInfo;
+    public Department(Long id, String name, String description, List<Professor> faculty, Professor headOfDepartment, Address address, String buildingLocation, ContactInfo contactInfo, List<String> degreePrograms, List<Course> coursesOffered, List<String> researchAreas, int studentCount, String website, int foundedYear, double budget, List<String> affiliatedOrganizations) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.faculty = faculty;
+        this.headOfDepartment = headOfDepartment;
         this.address = address;
         this.buildingLocation = buildingLocation;
-        this.headOfDepartment = headOfDepartment;
-        this.faculty = faculty;
-        this.description = description;
-        this.name = name;
-        this.id = id;
+        this.contactInfo = contactInfo;
+        this.degreePrograms = degreePrograms;
+        this.coursesOffered = coursesOffered;
+        this.researchAreas = researchAreas;
+        this.studentCount = studentCount;
+        this.website = website;
+        this.foundedYear = foundedYear;
+        this.budget = budget;
+        this.affiliatedOrganizations = affiliatedOrganizations;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

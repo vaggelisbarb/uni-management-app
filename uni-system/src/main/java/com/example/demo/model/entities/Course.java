@@ -24,7 +24,7 @@ public class Course {
     // Instructor and teaching information
     @ManyToOne
     @JoinColumn(name = "professor_id", nullable = false)
-    private Professor instructor;   // The main professor teaching the course
+    private Professor professor;   // The main professor teaching the course
 
     @ManyToMany
     @JoinTable(name = "course_teacher_assistants",
@@ -49,6 +49,11 @@ public class Course {
             inverseJoinColumns = @JoinColumn(name = "student_id"))
     private List<Student> enrolledStudents; // List of students in the course
 
+    @ManyToMany
+    @JoinTable(
+            name = "course_prerequisites",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "prerequisite_id"))
     private List<Course> prerequisites; // List of prerequisite courses
     private boolean isElective; // Whether the course is elective or required
 
@@ -65,13 +70,13 @@ public class Course {
 
     public Course () {}
 
-    public Course(Long id, String name, String description, int credits, String category, Professor instructor, String level, List<Professor> teachingAssistants, Department department, ScheduleInfo scheduleInfo, int maxStudents, List<Student> enrolledStudents, List<Course> prerequisites, boolean isElective, String gradingPolicy, String syllabus, List<String> resources) {
+    public Course(Long id, String name, String description, int credits, String category, Professor professor, String level, List<Professor> teachingAssistants, Department department, ScheduleInfo scheduleInfo, int maxStudents, List<Student> enrolledStudents, List<Course> prerequisites, boolean isElective, String gradingPolicy, String syllabus, List<String> resources) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.credits = credits;
         this.category = category;
-        this.instructor = instructor;
+        this.professor = professor;
         this.level = level;
         this.teachingAssistants = teachingAssistants;
         this.department = department;
@@ -133,12 +138,12 @@ public class Course {
         this.level = level;
     }
 
-    public Professor getInstructor() {
-        return instructor;
+    public Professor getProfessor() {
+        return professor;
     }
 
-    public void setInstructor(Professor instructor) {
-        this.instructor = instructor;
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
     }
 
     public List<Professor> getTeachingAssistants() {
@@ -230,7 +235,7 @@ public class Course {
                 ", credits=" + credits +
                 ", category='" + category + '\'' +
                 ", level='" + level + '\'' +
-                ", instructor=" + instructor +
+                ", professor=" + professor +
                 ", teachingAssistants=" + teachingAssistants +
                 ", department=" + department +
                 ", " + scheduleInfo.toString() +

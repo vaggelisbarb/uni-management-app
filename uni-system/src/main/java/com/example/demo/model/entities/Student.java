@@ -14,7 +14,7 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id; // Unique identifier for the student (e.g., "S12345")
+    private Long id; // Unique identifier for the student (e.g., "S12345")
 
     @Embedded
     private PersonalInfo personalInfo; // Personal information for the student
@@ -59,7 +59,7 @@ public class Student {
 
     public Student() {}
 
-    public Student(String id, PersonalInfo personalInfo, ContactInfo contactInfo, Address address,String nationality, EnrollmentInfo enrollmentInfo, Department department, List<Course> enrolledCourses, double gpa, int creditsCompleted, Professor advisor, List<String> extracurricularActivities, boolean isScholarshipHolder, List<String> achievements) {
+    public Student(Long id, PersonalInfo personalInfo, ContactInfo contactInfo, Address address,String nationality, EnrollmentInfo enrollmentInfo, Department department, List<Course> enrolledCourses, double gpa, int creditsCompleted, Professor advisor, List<String> extracurricularActivities, boolean isScholarshipHolder, List<String> achievements) {
         this.id = id;
         this.personalInfo = personalInfo;
         this.contactInfo = contactInfo;
@@ -76,11 +76,11 @@ public class Student {
         this.achievements = achievements;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
