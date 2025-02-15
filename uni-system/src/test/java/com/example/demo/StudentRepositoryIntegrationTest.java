@@ -166,10 +166,10 @@ public class StudentRepositoryIntegrationTest {
     }
     // Generate Student instance
     private static Student buildStudentObj() {
-        PersonalInfo personalInfo = new PersonalInfo("John", "Doe", "12-10-1996", "male");
+        PersonalInfo personalInfo = new PersonalInfo("John", "Doe", "12-10-1996", "Male");
         ContactInfo contactInfo = new ContactInfo("vaggelisbarbalias@outlook.com", "6900000000");
         Address address = new Address("1234 Main Str", "Country", "54321", "State", "City");
-        EnrollmentInfo enrollmentInfo = new EnrollmentInfo("10-10-2013", "ID2402205", "Active", "05-11-2018");
+        EnrollmentInfo enrollmentInfo = new EnrollmentInfo("10-10-2013", "ID2402205", "Active", "2018");
 
         Student student = new Student(null, personalInfo, contactInfo, address, "GREECE", enrollmentInfo, null, null, 6.4, 120, null, null, true, null );
         return student;

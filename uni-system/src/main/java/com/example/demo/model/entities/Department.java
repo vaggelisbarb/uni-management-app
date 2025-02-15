@@ -3,6 +3,12 @@ package com.example.demo.model.entities;
 import com.example.demo.model.embeddables.Address;
 import com.example.demo.model.embeddables.ContactInfo;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import org.hibernate.validator.constraints.URL;
 
 import java.util.List;
 
@@ -15,7 +21,10 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // Unique identifier for the department (e.g., "CS101")
 
+    @NotBlank(message = "Department name is required")
     private String name; // Full name of the department (e.g., "Department of Computer Science")
+
+    @NotBlank(message = "Department description is required")
     private String description; // Brief description of the department's purpose and focus
 
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -26,29 +35,38 @@ public class Department {
     private Professor headOfDepartment; // The professor currently leading the department
 
     @Embedded
+    @Valid
     private Address address; // The address of the department
 
     private String buildingLocation; // Physical location of the department (building and room number)
 
     @Embedded
+    @Valid
     private ContactInfo contactInfo; // Contact information about the department
 
     // Academic Programs & Courses
 
     @ElementCollection
+    @NotEmpty(message = "Degree programs cannot be empty")
     private List<String> degreePrograms; // List of degree programs offered (e.g., BSc, MSc, PhD)
 
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Course> coursesOffered; // List of courses available under this department
 
     @ElementCollection
+    @NotEmpty(message = "Research areas cannot be empty")
     private List<String> researchAreas; // Research areas the department specializes in (e.g., "AI", "Cybersecurity")
 
+    @Min(value = 0, message = "Student count cannot be negative")
     private int studentCount; // Total number of students currently enrolled in the department
 
     // Administrative & Miscellaneous
+    @URL(message = "Not a valid website URL")
     private String website; // Official website of the department
+
     private int foundedYear; // Year in which the department was established
+
+    @DecimalMin(value = "0.0", message = "Budget must be a positive value")
     private double budget; // Allocated budget for the department
 
     @ElementCollection
