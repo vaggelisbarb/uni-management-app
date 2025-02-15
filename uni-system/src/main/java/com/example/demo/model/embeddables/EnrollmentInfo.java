@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class EnrollmentInfo {
 
-    private Date enrollmentDate;    // Date the student was enrolled in the institution
+    private String enrollmentDate;    // Date the student was enrolled in the institution
     private String studentIdCardNumber; // Unique student ID card number
     private String currentStatus;   // Current status (e.g., "Active", "Graduated", "Dropped Out")
     private String graduationYear;  // Expected or actual year of graduation
@@ -12,18 +12,18 @@ public class EnrollmentInfo {
     public EnrollmentInfo() {
     }
 
-    public EnrollmentInfo(Date enrollmentDate, String studentIdCardNumber, String currentStatus, String graduationYear) {
+    public EnrollmentInfo(String enrollmentDate, String studentIdCardNumber, String currentStatus, String graduationYear) {
         this.enrollmentDate = enrollmentDate;
         this.studentIdCardNumber = studentIdCardNumber;
         this.currentStatus = currentStatus;
         this.graduationYear = graduationYear;
     }
 
-    public Date getEnrollmentDate() {
+    public String getEnrollmentDate() {
         return enrollmentDate;
     }
 
-    public void setEnrollmentDate(Date enrollmentDate) {
+    public void setEnrollmentDate(String enrollmentDate) {
         this.enrollmentDate = enrollmentDate;
     }
 

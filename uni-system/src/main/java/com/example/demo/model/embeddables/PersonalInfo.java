@@ -9,13 +9,13 @@ public class PersonalInfo {
 
     private String firstName;
     private String lastName;
-    private Date dateOfBirth;
+    private String dateOfBirth;
     private String gender;
 
     public PersonalInfo() {
     }
 
-    public PersonalInfo(String firstName, String lastName, Date dateOfBirth, String gender) {
+    public PersonalInfo(String firstName, String lastName, String dateOfBirth, String gender) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
@@ -38,11 +38,11 @@ public class PersonalInfo {
         this.lastName = lastName;
     }
 
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

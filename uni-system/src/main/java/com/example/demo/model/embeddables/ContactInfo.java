@@ -2,6 +2,7 @@ package com.example.demo.model.embeddables;
 
 import jakarta.persistence.Embeddable;
 
+
 @Embeddable
 public class ContactInfo {
 
