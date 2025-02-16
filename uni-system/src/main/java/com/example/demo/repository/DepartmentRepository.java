@@ -24,16 +24,6 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
     Optional<Department> findByName(String name);
 
     /**
-     * Find all departments with a specific research area
-     *
-     * @param researchArea the research area of the department
-     * @return {@link List} of Department objects with the specified research area
-     * @see List
-     * @see Department
-     */
-    List<Department> findByResearchAreasContaining(String researchArea);
-
-    /**
      * Find departments with a budget greater than a given amount
      *
      * @param minBudget the minimum amount of budget
@@ -86,10 +76,5 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
     // Find the department with the highest budget
     @Query("SELECT d FROM Department d ORDER BY d.budget DESC LIMIT 1")
     Optional<Department> findTopByOrderByBudgetDesc();
-
-    // Find departments that have a research area related to AI
-    @Query("SELECT d FROM Department d WHERE 'Artificial Intelligence' MEMBER OF d.researchAreas")
-    List<Department> findDepartmentsSpecializedInAI();
-
 
 }

@@ -1,0 +1,150 @@
+[
+  {
+    "personalInfo": {
+      "firstName": "John",
+      "lastName": "Doe",
+      "dateOfBirth": "15-05-2000",
+      "gender": "Male"
+    },
+    "contactInfo": {
+      "email": "john.doe@example.com",
+      "phoneNumber": "123-456-7890"
+    },
+    "address": {
+      "street": "123 Main St",
+      "city": "New York",
+      "state": "NY",
+      "postalCode": "10001",
+      "country": "USA"
+    },
+    "nationality": "American",
+    "enrollmentInfo": {
+      "enrollmentDate": "01-09-2019",
+      "studentIdCardNumber": "S123456789",
+      "currentStatus": "Active",
+      "graduationYear": "2025"
+    },
+    "department": {
+      "id": 1,
+      "name": "Computer Science"
+    },
+    "enrolledCourses": null,
+    "gpa": 3.8,
+    "creditsCompleted": 90,
+    "advisor": null,
+    "extracurricularActivities": ["Coding Club", "Basketball Team"],
+    "isScholarshipHolder": true,
+    "achievements": ["Dean's List", "Hackathon Winner"]
+  },
+  {
+    "personalInfo": {
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "dateOfBirth": "20-07-2001",
+      "gender": "Female"
+    },
+    "contactInfo": {
+      "email": "jane.smith@example.com",
+      "phoneNumber": "987-654-3210"
+    },
+    "address": {
+      "street": "456 Elm St",
+      "city": "Los Angeles",
+      "state": "CA",
+      "postalCode": "90001",
+      "country": "USA"
+    },
+    "nationality": "Canadian",
+    "enrollmentInfo": {
+      "enrollmentDate": "01-09-2020",
+      "studentIdCardNumber": "S987654321",
+      "currentStatus": "Graduated",
+      "graduationYear": "2023"
+    },
+    "department": {
+      "id": 2,
+      "name": "Electrical Engineering"
+    },
+    "enrolledCourses": null,
+    "gpa": 3.7,
+    "creditsCompleted": 75,
+    "advisor": null,
+    "extracurricularActivities": ["Robotics Club", "Volunteering"],
+    "isScholarshipHolder": false,
+    "achievements": ["Best Project Award"]
+  },
+  {
+    "personalInfo": {
+      "firstName": "Michael",
+      "lastName": "Brown",
+      "dateOfBirth": "10-12-1999",
+      "gender": "Male"
+    },
+    "contactInfo": {
+      "email": "michael.brown@example.com",
+      "phoneNumber": "555-666-7777"
+    },
+    "address": {
+      "street": "789 Oak St",
+      "city": "Chicago",
+      "state": "IL",
+      "postalCode": "60601",
+      "country": "USA"
+    },
+    "nationality": "British",
+    "enrollmentInfo": {
+      "enrollmentDate": "01-09-2018",
+      "studentIdCardNumber": "S876543210",
+      "currentStatus": "Graduated",
+      "graduationYear": "2025"
+    },
+    "department": {
+      "id": 3,
+      "name": "Mechanical Engineering"
+    },
+    "enrolledCourses": null,
+    "gpa": 3.9,
+    "creditsCompleted": 120,
+    "advisor": null,
+    "extracurricularActivities": ["Formula SAE", "Math Club"],
+    "isScholarshipHolder": true,
+    "achievements": ["Top Student Award"]
+  },
+  {
+    "personalInfo": {
+      "firstName": "Emily",
+      "lastName": "Johnson",
+      "dateOfBirth": "25-03-2002",
+      "gender": "Female"
+    },
+    "contactInfo": {
+      "email": "emily.johnson@example.com",
+      "phoneNumber": "111-222-3333"
+    },
+    "address": {
+      "street": "101 Maple St",
+      "city": "San Francisco",
+      "state": "CA",
+      "postalCode": "94101",
+      "country": "USA"
+    },
+    "nationality": "Australian",
+    "enrollmentInfo": {
+      "enrollmentDate": "01-09-2021",
+      "studentIdCardNumber": "S765432109",
+      "currentStatus": "Active",
+      "graduationYear": "2024"
+    },
+    "department": {
+      "id": 4,
+      "name": "Civil Engineering"
+    },
+    "enrolledCourses": null,
+    "gpa": 3.6,
+    "creditsCompleted": 60,
+    "advisor": null,
+    "extracurricularActivities": ["Environmental Club", "Student Government"],
+    "isScholarshipHolder": false,
+    "achievements": ["Leadership Award"]
+  }
+]

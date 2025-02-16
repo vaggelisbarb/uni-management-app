@@ -1,0 +1,80 @@
+[
+  {
+    "name": "Department of Computer Science",
+    "description": "Focuses on AI, Cybersecurity, and Software Engineering.",
+    "faculty": null,
+    "buildingLocation": "Building A, Room 305",
+    "address": {
+      "street": "123 University St",
+      "city": "City",
+      "state": "State",
+      "postalCode": "12345",
+      "country": "Countryland"
+    },
+    "contactInfo": {
+      "email": "cs-dept@university.edu",
+      "phoneNumber": "+1 234 567 8900"
+    },
+    "headOfDepartment": null,
+    "degreePrograms": ["BSc in Computer Science", "MSc in AI", "PhD in Cybersecurity"],
+    "coursesOffered": null,
+    "researchAreas": ["Artificial Intelligence", "Cybersecurity", "Software Engineering"],
+    "studentCount": 500,
+    "website": "https://cs.university.edu",
+    "foundedYear": 1985,
+    "budget": 5000000.00,
+    "affiliatedOrganizations": null
+  },
+  {
+    "name": "Department of Electrical Engineering",
+    "description": "Specializes in Power Systems, Embedded Systems, and Signal Processing.",
+    "faculty": null,
+    "buildingLocation": "Building B, Room 201",
+    "address": {
+      "street": "456 College Ave",
+      "city": "Tech City",
+      "state": "State",
+      "postalCode": "67890",
+      "country": "ElectroLand"
+    },
+    "contactInfo": {
+      "email": "ee-dept@university.edu",
+      "phoneNumber": "+1 345 678 9012"
+    },
+    "headOfDepartment": null,
+    "degreePrograms": ["BSc in Electrical Engineering", "MSc in Embedded Systems", "PhD in Power Systems"],
+    "coursesOffered": null,
+    "researchAreas": ["Renewable Energy", "Microelectronics", "Wireless Communications"],
+    "studentCount": 600,
+    "website": "https://ee.university.edu",
+    "foundedYear": 1975,
+    "budget": 4500000.00,
+    "affiliatedOrganizations": null
+  },
+  {
+    "name": "Department of Mechanical Engineering",
+    "description": "Focuses on Robotics, Thermodynamics, and Structural Engineering.",
+    "faculty": null,
+    "buildingLocation": "Building C, Room 150",
+    "address": {
+      "street": "789 Science Rd",
+      "city": "Innovation City",
+      "state": "State",
+      "postalCode": "98765",
+      "country": "MechaLand"
+    },
+    "contactInfo": {
+      "email": "me-dept@university.edu",
+      "phoneNumber": "+1 456 789 0123"
+    },
+    "headOfDepartment": null,
+    "degreePrograms": ["BSc in Mechanical Engineering", "MSc in Robotics", "PhD in Fluid Mechanics"],
+    "coursesOffered": null,
+    "researchAreas": ["Robotics", "Aerospace Engineering", "Automotive Design"],
+    "studentCount": 550,
+    "website": "https://me.university.edu",
+    "foundedYear": 1980,
+    "budget": 4800000.00,
+    "affiliatedOrganizations": null
+  }
+]
