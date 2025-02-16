@@ -4,6 +4,7 @@ import com.example.demo.model.embeddables.Address;
 import com.example.demo.model.embeddables.ContactInfo;
 import com.example.demo.model.embeddables.EnrollmentInfo;
 import com.example.demo.model.embeddables.PersonalInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 
@@ -56,6 +57,7 @@ public class Student {
                 joinColumns = @JoinColumn(name = "student_id"))
     private List<String> extracurricularActivities; // List of extracurricular activities the student participates in
 
+    @JsonProperty("isScholarshipHolder")
     private boolean isScholarshipHolder; // Indicates if the student has a scholarship
 
     @ElementCollection

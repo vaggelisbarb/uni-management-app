@@ -46,14 +46,12 @@ public class Department {
 
     // Academic Programs & Courses
 
-    @ElementCollection
     @NotEmpty(message = "Degree programs cannot be empty")
     private List<String> degreePrograms; // List of degree programs offered (e.g., BSc, MSc, PhD)
 
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Course> coursesOffered; // List of courses available under this department
 
-    @ElementCollection
     @NotEmpty(message = "Research areas cannot be empty")
     private List<String> researchAreas; // Research areas the department specializes in (e.g., "AI", "Cybersecurity")
 

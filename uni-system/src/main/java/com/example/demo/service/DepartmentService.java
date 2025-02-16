@@ -74,10 +74,6 @@ public class DepartmentService {
         return departmentRepository.findByName(name);
     }
 
-    // Find departments by research area
-    public List<Department> findByResearchArea(String researchArea) {
-        return departmentRepository.findByResearchAreasContaining(researchArea);
-    }
 
     // Find departments by budget range
     public List<Department> findByBudgetBetween(double minBudget, double maxBudget) {
@@ -117,11 +113,6 @@ public class DepartmentService {
     // Find department with the highest budget
     public Optional<Department> findDepartmentWithHighestBudget() {
         return departmentRepository.findTopByOrderByBudgetDesc();
-    }
-
-    // Find departments specialized in AI
-    public List<Department> findDepartmentsSpecializedInAI() {
-        return departmentRepository.findDepartmentsSpecializedInAI();
     }
 
     // Check if a department exists by id
