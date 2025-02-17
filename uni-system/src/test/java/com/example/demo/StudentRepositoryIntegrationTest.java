@@ -2,22 +2,13 @@ package com.example.demo;
 
 
 import com.example.demo.repository.DepartmentRepository;
-import com.example.demo.util.JsonUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.example.demo.model.embeddables.Address;
-import com.example.demo.model.embeddables.ContactInfo;
-import com.example.demo.model.embeddables.EnrollmentInfo;
-import com.example.demo.model.embeddables.PersonalInfo;
 import com.example.demo.model.entities.Department;
 import com.example.demo.model.entities.Professor;
 import com.example.demo.model.entities.Student;
 import com.example.demo.repository.StudentRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Validation;
-import jakarta.validation.Validator;
-import jakarta.validation.ValidatorFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,10 +20,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 

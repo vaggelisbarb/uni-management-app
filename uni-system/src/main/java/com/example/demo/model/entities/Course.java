@@ -2,11 +2,17 @@ package com.example.demo.model.entities;
 
 import com.example.demo.model.embeddables.ScheduleInfo;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
 @Table(name = "course")
+@Data  // Lombok generates getters, setters, equals, hashCode, toString
+@NoArgsConstructor  // Generates a no-args constructor
+@AllArgsConstructor  // Generates an all-args constructor
 public class Course {
 
     // Basic information
@@ -68,184 +74,4 @@ public class Course {
             joinColumns = @JoinColumn(name = "course_id"))
     private List<String> resources; // List of links to materials or books
 
-    public Course () {}
-
-    public Course(Long id, String name, String description, int credits, String category, Professor professor, String level, List<Professor> teachingAssistants, Department department, ScheduleInfo scheduleInfo, int maxStudents, List<Student> enrolledStudents, List<Course> prerequisites, boolean isElective, String gradingPolicy, String syllabus, List<String> resources) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.credits = credits;
-        this.category = category;
-        this.professor = professor;
-        this.level = level;
-        this.teachingAssistants = teachingAssistants;
-        this.department = department;
-        this.scheduleInfo = scheduleInfo;
-        this.maxStudents = maxStudents;
-        this.enrolledStudents = enrolledStudents;
-        this.prerequisites = prerequisites;
-        this.isElective = isElective;
-        this.gradingPolicy = gradingPolicy;
-        this.syllabus = syllabus;
-        this.resources = resources;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getCredits() {
-        return credits;
-    }
-
-    public void setCredits(int credits) {
-        this.credits = credits;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
-    }
-
-    public Professor getProfessor() {
-        return professor;
-    }
-
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
-    }
-
-    public List<Professor> getTeachingAssistants() {
-        return teachingAssistants;
-    }
-
-    public void setTeachingAssistants(List<Professor> teachingAssistants) {
-        this.teachingAssistants = teachingAssistants;
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-    public ScheduleInfo getScheduleInfo() {
-        return scheduleInfo;
-    }
-
-    public void setScheduleInfo(ScheduleInfo scheduleInfo) {
-        this.scheduleInfo = scheduleInfo;
-    }
-
-    public int getMaxStudents() {
-        return maxStudents;
-    }
-
-    public void setMaxStudents(int maxStudents) {
-        this.maxStudents = maxStudents;
-    }
-
-    public List<Student> getEnrolledStudents() {
-        return enrolledStudents;
-    }
-
-    public void setEnrolledStudents(List<Student> enrolledStudents) {
-        this.enrolledStudents = enrolledStudents;
-    }
-
-    public List<Course> getPrerequisites() {
-        return prerequisites;
-    }
-
-    public void setPrerequisites(List<Course> prerequisites) {
-        this.prerequisites = prerequisites;
-    }
-
-    public boolean isElective() {
-        return isElective;
-    }
-
-    public void setElective(boolean elective) {
-        isElective = elective;
-    }
-
-    public String getGradingPolicy() {
-        return gradingPolicy;
-    }
-
-    public void setGradingPolicy(String gradingPolicy) {
-        this.gradingPolicy = gradingPolicy;
-    }
-
-    public String getSyllabus() {
-        return syllabus;
-    }
-
-    public void setSyllabus(String syllabus) {
-        this.syllabus = syllabus;
-    }
-
-    public List<String> getResources() {
-        return resources;
-    }
-
-    public void setResources(List<String> resources) {
-        this.resources = resources;
-    }
-
-    @Override
-    public String toString() {
-        return "Course{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", credits=" + credits +
-                ", category='" + category + '\'' +
-                ", level='" + level + '\'' +
-                ", professor=" + professor +
-                ", teachingAssistants=" + teachingAssistants +
-                ", department=" + department +
-                ", " + scheduleInfo.toString() +
-                ", maxStudents=" + maxStudents +
-                ", enrolledStudents=" + enrolledStudents +
-                ", prerequisites=" + prerequisites +
-                ", isElective=" + isElective +
-                ", gradingPolicy='" + gradingPolicy + '\'' +
-                ", syllabus='" + syllabus + '\'' +
-                ", resources=" + resources +
-                '}';
-    }
 }

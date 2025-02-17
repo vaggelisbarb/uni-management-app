@@ -5,6 +5,7 @@ import com.example.demo.model.entities.Department;
 import com.example.demo.repository.DepartmentRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.transaction.Transactional;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.aspectj.lang.annotation.Before;
@@ -141,8 +142,6 @@ public class DepartmentRepositoryIntegrationTest {
         List<Department> departments = departmentRepository.findByCity("Unknown City");
         assertTrue(departments.isEmpty());
     }
-
-
     @Test
     public void findTopByOrderByBudgetDescTest() {
         Optional<Department> department = departmentRepository.findTopByOrderByBudgetDesc();
