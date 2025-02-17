@@ -40,8 +40,8 @@ public class TestEntities {
                 , "Introduction to Basics of Computer sciece & engineering"
                 , 5
                 , "Computer Science"
-                , null
                 , "Undergraduate"
+                , null
                 , null
                 , null
                 , scheduleInfo
