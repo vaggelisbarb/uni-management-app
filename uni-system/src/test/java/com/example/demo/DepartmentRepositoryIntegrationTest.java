@@ -6,6 +6,10 @@ import com.example.demo.repository.DepartmentRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
+import org.aspectj.lang.annotation.Before;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,6 +21,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -137,8 +142,6 @@ public class DepartmentRepositoryIntegrationTest {
         List<Department> departments = departmentRepository.findByCity("Unknown City");
         assertTrue(departments.isEmpty());
     }
-
-    //
     @Test
     public void findTopByOrderByBudgetDescTest() {
         Optional<Department> department = departmentRepository.findTopByOrderByBudgetDesc();

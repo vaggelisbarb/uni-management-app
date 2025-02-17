@@ -1,4 +1,4 @@
-![Maven Build](https://github.com/vaggelisbarb/uni-management-app/actions/workflows/maven.yml/badge.svg)
+[![Maven Build and Test](https://github.com/vaggelisbarb/uni-management-app/actions/workflows/maven.yml/badge.svg?branch=master)](https://github.com/vaggelisbarb/uni-management-app/actions/workflows/maven.yml)
 
 # **University Management System**  
 
