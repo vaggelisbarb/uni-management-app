@@ -40,7 +40,7 @@ public class TestEntities {
                 , "Introduction to Basics of Computer sciece & engineering"
                 , 5
                 , "Computer Science"
-                , "Undergraduate"
+                , "Postgraduate"
                 , null
                 , null
                 , null
