@@ -1,6 +1,6 @@
 package com.example.demo.util;
 
-import com.example.demo.dto.DepartmentDTO;
+import com.example.demo.dto.department.DepartmentDTO;
 import com.example.demo.model.entities.Course;
 import com.example.demo.model.entities.Department;
 
@@ -20,7 +20,8 @@ public class DepartmentMapper {
                 department.getStudentCount(),
                 department.getWebsite(),
                 department.getFoundedYear(),
-                coursesToStringList(department.getCoursesOffered())
+                coursesToStringList(department.getCoursesOffered()),
+                department.getDegreePrograms()
         );
     }
 
@@ -33,6 +34,7 @@ public class DepartmentMapper {
         department.setStudentCount(departmentDTO.getStudentCount());
         department.setWebsite(departmentDTO.getWebsite());
         department.setFoundedYear(departmentDTO.getFoundedYear());
+        department.setDegreePrograms(departmentDTO.getDegreePrograms() != null ? departmentDTO.getDegreePrograms() : new ArrayList<>());
 
         // Convert course names to Course entities
         department.setCoursesOffered(coursesFromStringList(departmentDTO.getCourses() != null ? departmentDTO.getCourses() : new ArrayList<>()));

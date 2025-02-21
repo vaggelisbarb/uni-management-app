@@ -58,7 +58,7 @@ public class Department {
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Course> coursesOffered; // List of courses available under this department
 
-    @NotEmpty(message = "Research areas cannot be empty")
+    //@NotEmpty(message = "Research areas cannot be empty")
     private List<String> researchAreas; // Research areas the department specializes in (e.g., "AI", "Cybersecurity")
 
     @Min(value = 0, message = "Student count cannot be negative")

@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.DepartmentDTO;
+import com.example.demo.dto.department.DepartmentDTO;
 import com.example.demo.model.entities.Department;
 import com.example.demo.repository.DepartmentRepository;
 import com.example.demo.util.DepartmentMapper;
@@ -50,6 +50,11 @@ public class DepartmentService {
         } else {
             throw new RuntimeException("Department not found with id: " + departmentDTO.getId());
         }
+    }
+
+    public Optional<DepartmentDTO> findById(Long id) {
+        return departmentRepository.findById(id)
+                .map(DepartmentMapper::toDTO);
     }
 
     // Find department by name

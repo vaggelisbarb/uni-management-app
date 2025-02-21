@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.demo.dto.department;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,5 +22,5 @@ public class DepartmentDTO {
     private String website;            // Department website
     private int foundedYear;           // Year founded
     private List<String> courses;      // Course names (instead of full Course objects)
-
+    private List<String> degreePrograms; // List of degree programs
 }

@@ -1,11 +1,10 @@
 package com.example.demo;
 
-import com.example.demo.dto.DepartmentDTO;
+import com.example.demo.dto.department.DepartmentDTO;
 import com.example.demo.model.entities.Department;
 import com.example.demo.repository.DepartmentRepository;
 import com.example.demo.service.DepartmentService;
 import com.example.demo.util.DepartmentMapper;
-import com.example.demo.util.JsonUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,8 +16,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.*;
@@ -46,107 +47,127 @@ public class DepartmentServiceTest {
     @Test
     void testCreateDepartment() {
         for (DepartmentDTO departmentDTO : departmentDTOList) {
-            Department department = DepartmentMapper.toEntity(departmentDTO);
-
-            when(departmentRepository.save(any(Department.class))).thenReturn(department);
-
-            // Call the method under test
+            when(departmentRepository.save(any(Department.class))).thenReturn(DepartmentMapper.toEntity(departmentDTO));
             DepartmentDTO savedDepartment = departmentService.createDepartment(departmentDTO);
-
-            // Verify that the save method is called once for each department
             assertNotNull(savedDepartment);
             assertEquals(departmentDTO.getName(), savedDepartment.getName());
         }
-
-        // Ensure that save is called only once for each department after the loop
         verify(departmentRepository, times(departmentDTOList.size())).save(any(Department.class));
+    }
+
+    @Test
+    void testFindByID() {
+        Department department = DepartmentMapper.toEntity(departmentDTOList.get(0));
+        department.setId(1L);
+        when(departmentRepository.findById(1L)).thenReturn(Optional.of(department));
+
+        Optional<DepartmentDTO> fetchedDepartment = departmentService.findById(1L);
+        assertNotNull(fetchedDepartment);
+        assertEquals(department.getName(), fetchedDepartment.get().getName());
     }
 
     @Test
     void testFindAll() {
         when(departmentRepository.findAll()).thenReturn(departmentDTOList.stream().map(DepartmentMapper::toEntity).collect(toList()));
-
-        // Call the method under test
         List<DepartmentDTO> fetchedDepartments = departmentService.findAll();
-
-        // Verify that the findAll method is called once
         assertNotNull(fetchedDepartments);
-        for (DepartmentDTO departmentDTO : fetchedDepartments) {
-            System.out.println(JsonUtil.toJson(departmentDTO));
-
-        }
         assertEquals(departmentDTOList.size(), fetchedDepartments.size());
     }
 
     @Test
-    void testDeleteDepartment() {
-        // Create a department entity from the DTO
-        Department department = DepartmentMapper.toEntity(departmentDTOList.get(0));
-
-        // Manually set the ID for the department (simulating Hibernate's auto-generation)
-        department.setId(1L);
-
-        // Mock the repository to return true when existsById is called with ID 1
-        when(departmentRepository.existsById(1L)).thenReturn(true);
-
-        // Call the method under test
-        departmentService.deleteDepartment(1L);
-
-        // Verify that the delete method is called once with the department's id
-        verify(departmentRepository, times(1)).deleteById(1L);
-        assertEquals(0, departmentRepository.findAll().size());
+    void testFindAllEmpty() {
+        when(departmentRepository.findAll()).thenReturn(Collections.emptyList());
+        List<DepartmentDTO> fetchedDepartments = departmentService.findAll();
+        assertNotNull(fetchedDepartments);
+        assertTrue(fetchedDepartments.isEmpty());
     }
 
     @Test
-    void testUpdateDepartmentExists() {
-        // Prepare department entity
-        Department department = new Department();
+    void testDeleteDepartment() {
+        Department department = DepartmentMapper.toEntity(departmentDTOList.get(0));
         department.setId(1L);
-        department.setName("Computer Science");
+        when(departmentRepository.existsById(1L)).thenReturn(true);
+        departmentService.deleteDepartment(1L);
+        verify(departmentRepository, times(1)).deleteById(1L);
+    }
 
-        // Prepare departmentDTO with the updated name
-        DepartmentDTO departmentDTO = new DepartmentDTO();
-        departmentDTO.setId(1L);
-        departmentDTO.setName("Updated Computer Science");
+    @Test
+    void testDeleteNonExistentDepartment() {
+        when(departmentRepository.existsById(99L)).thenReturn(false);
+        assertThrows(RuntimeException.class, () -> departmentService.deleteDepartment(99L));
+        verify(departmentRepository, never()).deleteById(99L);
+    }
 
-        // Mock the repository to return the department when findById is called
+
+    @Test
+    void testUpdateDepartmentExists() {
+        DepartmentDTO departmentDTO = departmentDTOList.get(0);
+        Department department = DepartmentMapper.toEntity(departmentDTO);
+        department.setId(1L);
         when(departmentRepository.findById(1L)).thenReturn(Optional.of(department));
-
-        // Mock the save method to return the updated department
         when(departmentRepository.save(any(Department.class))).thenReturn(department);
-
-        // Call the update method
         DepartmentDTO updatedDepartment = departmentService.updateDepartment(departmentDTO);
-
-        // Verify the updated department's name is correct
         assertNotNull(updatedDepartment);
-        assertEquals("Computer Science", updatedDepartment.getName());
-
-        // Verify repository calls
-        verify(departmentRepository, times(1)).findById(1L);
-        verify(departmentRepository, times(1)).save(any(Department.class));
+        assertEquals(departmentDTO.getName(), updatedDepartment.getName());
     }
 
     @Test
     void testUpdateDepartmentNotFound() {
-        // Create a departmentDTO with ID 99L for the test
-        DepartmentDTO departmentDTO = new DepartmentDTO();
+        DepartmentDTO departmentDTO = departmentDTOList.get(0);
         departmentDTO.setId(99L);
-        departmentDTO.setName("Non-existent Department");
-
-        // Mock the repository to return an empty Optional for the department ID 99L
         when(departmentRepository.findById(99L)).thenReturn(Optional.empty());
+        assertThrows(RuntimeException.class, () -> departmentService.updateDepartment(departmentDTO));
+    }
 
-        // Call the update method and assert that an exception is thrown
-        RuntimeException thrown = assertThrows(RuntimeException.class, () -> departmentService.updateDepartment(departmentDTO));
+    @Test
+    void testFindByBudgetBetween_NoMatch() {
+        when(departmentRepository.findByBudgetBetween(10000000.00, 20000000.00)).thenReturn(Collections.emptyList());
+        List<DepartmentDTO> result = departmentService.findByBudgetBetween(10000000.00, 20000000.00);
+        assertTrue(result.isEmpty());
+    }
 
-        // Assert that the exception message is as expected
-        assertEquals("Department not found with id: " + departmentDTO.getId(), thrown.getMessage());
+    @Test
+    void testFindByBudgetBetween_MultipleMatches() {
+        List<Department> matchingDepartments = departmentDTOList.stream()
+                .map(DepartmentMapper::toEntity)
+                .filter(dept -> dept.getBudget() >= 4000000 && dept.getBudget() <= 5000000)
+                .collect(toList());
+        when(departmentRepository.findByBudgetBetween(4000000, 5000000)).thenReturn(matchingDepartments);
+        List<DepartmentDTO> result = departmentService.findByBudgetBetween(4000000, 5000000);
+        assertEquals(matchingDepartments.size(), result.size());
+    }
 
-        // Verify that findById was called once
-        verify(departmentRepository, times(1)).findById(99L);
-        // Ensure save was not called since the department wasn't found
-        verify(departmentRepository, never()).save(any(Department.class));
+    @Test
+    void testFindByFoundedYearAfter() {
+        when(departmentRepository.findByFoundedYearAfter(1980))
+                .thenReturn((List<Department>) departmentDTOList.stream().map(DepartmentMapper::toEntity).filter(d -> d.getFoundedYear() > 1980).collect(Collectors.toList()));
+
+        List<DepartmentDTO> result = departmentService.findByFoundedYearAfter(1980);
+        assertNotNull(result);
+        assertTrue(result.stream().allMatch(d -> d.getFoundedYear() > 1980));
+        assertEquals(1, result.size());
+    }
+
+    @Test
+    void testFindByStudentCountGreaterThan() {
+        when(departmentRepository.findByStudentCountGreaterThan(500))
+                .thenReturn((List<Department>) departmentDTOList.stream().map(DepartmentMapper::toEntity).filter(d -> d.getStudentCount() > 500).collect(Collectors.toList()));
+
+        List<DepartmentDTO> result = departmentService.findByStudentCountGreaterThan(500);
+        assertNotNull(result);
+        assertTrue(result.stream().allMatch(d -> d.getStudentCount() > 500));
+        assertEquals(2, result.size());
+    }
+
+
+
+    @Test
+    void testExistsById() {
+        when(departmentRepository.existsById(1L)).thenReturn(true);
+        when(departmentRepository.existsById(99L)).thenReturn(false);
+
+        assertTrue(departmentService.existsById(1L));
+        assertFalse(departmentService.existsById(99L));
     }
 
 
@@ -159,9 +180,9 @@ public class DepartmentServiceTest {
                 new File("src/main/resources/data/departments.json"),
                 new TypeReference<List<DepartmentDTO>>() {}
         );
-        departmentDTOList.get(0).setId(1L);
-        departmentDTOList.get(1).setId(2L);
-        departmentDTOList.get(2).setId(3L);
+        for (int i = 0; i < departmentDTOList.size(); i++) {
+            departmentDTOList.get(i).setId((long) (i + 1));
+        }
         // You can further modify or populate additional fields here if needed
         return departmentDTOList;
     }

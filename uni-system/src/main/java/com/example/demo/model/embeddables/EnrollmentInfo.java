@@ -1,12 +1,19 @@
 package com.example.demo.model.embeddables;
 
+import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
-
+@Embeddable
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class EnrollmentInfo {
 
     @NotBlank(message = "Enrollment date is required")
@@ -24,55 +31,4 @@ public class EnrollmentInfo {
     @Pattern(regexp = "^\\d{4}$", message = "Graduation year must be a valid 4-digit year")
     private String graduationYear;  // Expected or actual year of graduation
 
-    public EnrollmentInfo() {
-    }
-
-    public EnrollmentInfo(String enrollmentDate, String studentIdCardNumber, String currentStatus, String graduationYear) {
-        this.enrollmentDate = enrollmentDate;
-        this.studentIdCardNumber = studentIdCardNumber;
-        this.currentStatus = currentStatus;
-        this.graduationYear = graduationYear;
-    }
-
-    public String getEnrollmentDate() {
-        return enrollmentDate;
-    }
-
-    public void setEnrollmentDate(String enrollmentDate) {
-        this.enrollmentDate = enrollmentDate;
-    }
-
-    public String getStudentIdCardNumber() {
-        return studentIdCardNumber;
-    }
-
-    public void setStudentIdCardNumber(String studentIdCardNumber) {
-        this.studentIdCardNumber = studentIdCardNumber;
-    }
-
-    public String getCurrentStatus() {
-        return currentStatus;
-    }
-
-    public void setCurrentStatus(String currentStatus) {
-        this.currentStatus = currentStatus;
-    }
-
-    public String getGraduationYear() {
-        return graduationYear;
-    }
-
-    public void setGraduationYear(String graduationYear) {
-        this.graduationYear = graduationYear;
-    }
-
-    @Override
-    public String toString() {
-        return "EnrollmentInfo{" +
-                "enrollmentDate=" + enrollmentDate +
-                ", studentIdCardNumber='" + studentIdCardNumber + '\'' +
-                ", currentStatus='" + currentStatus + '\'' +
-                ", graduationYear='" + graduationYear + '\'' +
-                '}';
-    }
 }
