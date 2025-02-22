@@ -16,7 +16,9 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'mvn clean package'
+                dir('uni-management-app') { // Αν το repo κατεβαίνει σε φάκελο
+                    bat 'mvn clean package'
+                }
             }
         }
 
