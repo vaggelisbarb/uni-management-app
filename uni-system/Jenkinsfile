@@ -3,7 +3,7 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven 3.8.6' // Use the Maven version set in Jenkins
+        maven 'Maven 3.8.6'
     }
 
     stages {
@@ -27,7 +27,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh 'java -jar target/your-app.jar'
+                sh 'java -jar target/uni-management-app.jar'
             }
         }
     }
