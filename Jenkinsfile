@@ -15,19 +15,19 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn clean package'
+                bat 'mvn clean package'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'mvn test'
+                bat 'mvn test'
             }
         }
 
         stage('Deploy') {
             steps {
-                sh 'java -jar target/uni-management-app.jar'
+                bat 'java -jar target/uni-management-app.jar'
             }
         }
     }
