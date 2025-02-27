@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 /**
@@ -46,8 +47,11 @@ public class DepartmentController {
             @ApiResponse(responseCode = "400", description = "Invalid request data")
     })
     @PostMapping
-    public ResponseEntity<DepartmentDTO> createDepartment(@RequestBody DepartmentDTO departmentDTO) {
+    public ResponseEntity<DepartmentDTO> createDepartment(@RequestBody DepartmentDTO departmentDTO) throws Exception {
         DepartmentDTO createdDepartment = departmentService.createDepartment(departmentDTO);
+        if (createdDepartment == null)
+            throw new Exception("Could not create department");
+
         return new ResponseEntity<>(createdDepartment, HttpStatus.CREATED);
     }
     /**
@@ -62,10 +66,11 @@ public class DepartmentController {
             @ApiResponse(responseCode = "404", description = "Department not found")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<DepartmentDTO> getDepartmentById(@PathVariable Long id) {
+    public ResponseEntity<DepartmentDTO> getDepartmentById(@PathVariable Long id) throws NoSuchElementException{
         Optional<DepartmentDTO> department  = departmentService.findById(id);
-        return department.map(departmentDTO -> new ResponseEntity<>(departmentDTO, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return department
+                .map(departmentDTO -> new ResponseEntity<>(departmentDTO, HttpStatus.OK))
+                .orElseThrow(() -> new NoSuchElementException("Department not found with id : " + id));
     }
 
     /**
@@ -81,8 +86,12 @@ public class DepartmentController {
             @ApiResponse(responseCode = "404", description = "Department not found")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<DepartmentDTO> updateDepartment(@RequestBody DepartmentDTO departmentDTO) {
+    public ResponseEntity<DepartmentDTO> updateDepartment(@RequestBody DepartmentDTO departmentDTO) throws NoSuchElementException{
         DepartmentDTO updatedDepartment = departmentService.updateDepartment(departmentDTO);
+
+        if (updatedDepartment == null) {
+            throw new NoSuchElementException("Could not update department with id : " + departmentDTO.getId());
+        }
         return new ResponseEntity<>(updatedDepartment, HttpStatus.OK);
     }
 
@@ -92,16 +101,16 @@ public class DepartmentController {
      * @param id the department ID
      * @return 204 NO CONTENT if deleted, otherwise 404 NOT FOUND
      */
-    @Operation(summary = "Delete a department", description = "Deletes a department by ID")
+    @Operation(summary = "Delete a department", description = "Deletes a Department by ID")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Department deleted successfully"),
             @ApiResponse(responseCode = "404", description = "Department not found")
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteDepartment(@PathVariable Long id) {
-        if (!departmentService.existsById(id)) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<Void> deleteDepartment(@PathVariable Long id) throws NoSuchElementException{
+        if (!departmentService.existsById(id))
+            throw new NoSuchElementException("Department not found with id " + id);
+
         departmentService.deleteDepartment(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -114,8 +123,11 @@ public class DepartmentController {
     @Operation(summary = "Get all departments", description = "Retrieves a list of all departments")
     @ApiResponse(responseCode = "200", description = "List of departments retrieved successfully")
     @GetMapping
-    public ResponseEntity<List<DepartmentDTO>> getAllDepartments() {
+    public ResponseEntity<List<DepartmentDTO>> getAllDepartments() throws Exception {
         List<DepartmentDTO> departments = departmentService.findAll();
+        if (departments == null)
+            throw new Exception("No departments found");
+
         return new ResponseEntity<>(departments, HttpStatus.OK);
     }
 
@@ -131,10 +143,11 @@ public class DepartmentController {
             @ApiResponse(responseCode = "404", description = "Department not found")
     })
     @GetMapping("/name/{name}")
-    public ResponseEntity<DepartmentDTO> getDepartmentByName(@PathVariable String name) {
+    public ResponseEntity<DepartmentDTO> getDepartmentByName(@PathVariable String name) throws NoSuchElementException{
         Optional<DepartmentDTO> department = departmentService.findByName(name);
-        return department.map(departmentDTO -> new ResponseEntity<>(departmentDTO, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return department
+                .map(departmentDTO -> new ResponseEntity<>(departmentDTO, HttpStatus.OK))
+                .orElseThrow(() -> new NoSuchElementException ("Could not find department with name " + name));
     }
 
     /**
@@ -146,8 +159,11 @@ public class DepartmentController {
     @Operation(summary = "Find departments founded after a specific year", description = "Retrieves departments founded after a given year")
     @ApiResponse(responseCode = "200", description = "List of departments retrieved successfully")
     @GetMapping("/founded-after/{year}")
-    public ResponseEntity<List<DepartmentDTO>> getDepartmentsFoundedAfter(@PathVariable int year) {
+    public ResponseEntity<List<DepartmentDTO>> getDepartmentsFoundedAfter(@PathVariable int year) throws NoSuchElementException{
         List<DepartmentDTO> departments = departmentService.findByFoundedYearAfter(year);
+        if (departments == null)
+            throw new NoSuchElementException("No departments found with foundation year after " + year);
+
         return new ResponseEntity<>(departments, HttpStatus.OK);
     }
 
@@ -159,8 +175,11 @@ public class DepartmentController {
     @Operation(summary = "Find departments by budget range", description = "Retrieves departments within a specified budget range")
     @ApiResponse(responseCode = "200", description = "List of departments retrieved successfully")
     @GetMapping("/budget-range")
-    public ResponseEntity<List<DepartmentDTO>> getDepartmentsByBudgetRange(@RequestParam double minBudget, @RequestParam double maxBudget) {
+    public ResponseEntity<List<DepartmentDTO>> getDepartmentsByBudgetRange(@RequestParam double minBudget, @RequestParam double maxBudget) throws NoSuchElementException{
         List<DepartmentDTO> departments = departmentService.findByBudgetBetween(minBudget, maxBudget);
+        if (departments == null)
+            throw new NoSuchElementException("No departments found with budget range between " + minBudget + " and " + maxBudget);
+
         return new ResponseEntity<>(departments, HttpStatus.OK);
     }
 
@@ -168,8 +187,10 @@ public class DepartmentController {
     @Operation(summary = "Find departments with student count greater than a specified number", description = "Retrieves departments where student count exceeds a given number")
     @ApiResponse(responseCode = "200", description = "List of departments retrieved successfully")
     @GetMapping("/student-count/{count}")
-    public ResponseEntity<List<DepartmentDTO>> getDepartmentsByStudentCountGreaterThan(@PathVariable int count) {
+    public ResponseEntity<List<DepartmentDTO>> getDepartmentsByStudentCountGreaterThan(@PathVariable int count) throws NoSuchElementException{
         List<DepartmentDTO> departments = departmentService.findByStudentCountGreaterThan(count);
+        if (departments == null)
+            throw new NoSuchElementException("No departments found with student count greater than " + count);
         return new ResponseEntity<>(departments, HttpStatus.OK);
     }
 
@@ -180,9 +201,9 @@ public class DepartmentController {
             @ApiResponse(responseCode = "404", description = "No department found")
     })
     @GetMapping("/highest-budget")
-    public ResponseEntity<DepartmentDTO> getDepartmentWithHighestBudget() {
+    public ResponseEntity<DepartmentDTO> getDepartmentWithHighestBudget() throws NoSuchElementException{
         Optional<DepartmentDTO> department = departmentService.findDepartmentWithHighestBudget();
         return department.map(departmentDTO -> new ResponseEntity<>(departmentDTO, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new NoSuchElementException("No department found with highest budget"));
     }
 }

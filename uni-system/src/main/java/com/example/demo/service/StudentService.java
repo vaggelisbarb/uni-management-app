@@ -114,4 +114,8 @@ public class StudentService {
                 .collect(Collectors.toList());
     }
 
+    public boolean existsById(Long id) {
+        return studentRepository.existsById(id);
+    }
+
 }
