@@ -84,12 +84,6 @@ public class StudentService {
                 .collect(Collectors.toList());
     }
 
-    // Find students who are scholarship holders
-    public List<StudentDTO> findScholarshipHolders() {
-        return studentRepository.findByIsScholarshipHolderTrue().stream()
-                .map(StudentMapper::toDTO)
-                .collect(Collectors.toList());
-    }
 
     // Find students with GPA and credits completed conditions
     public List<StudentDTO> findStudentsByGpaAndCredits(double gpa, int credits) {

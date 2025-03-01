@@ -139,18 +139,6 @@ public class StudentServiceTest {
         assertEquals(filteredStudents.size(), actualStudents.size());
     }
 
-    @Test
-    void testFindScholarshipHolders() {
-        List<Student> filteredStudents = studentList.stream()
-                .filter(Student::isScholarshipHolder)
-                .collect(Collectors.toList());
-
-        when(studentRepository.findByIsScholarshipHolderTrue()).thenReturn(filteredStudents);
-        List<StudentDTO> actualStudents = studentService.findScholarshipHolders();
-
-        assertEquals(filteredStudents.size(), actualStudents.size());
-        assertTrue(actualStudents.stream().allMatch(StudentDTO::isScholarshipHolder), "All students should be scholarship holders.");
-    }
 
     @Test
     void testFindStudentsByGpaAndCredits() {

@@ -3,6 +3,7 @@ package com.example.demo.util;
 import com.example.demo.dto.common.AddressDTO;
 import com.example.demo.dto.common.ContactInfoDTO;
 import com.example.demo.dto.common.PersonalInfoDTO;
+import com.example.demo.dto.department.DepartmentDTO;
 import com.example.demo.dto.student.EnrollmentInfoDTO;
 import com.example.demo.dto.student.StudentDTO;
 import com.example.demo.model.embeddables.Address;
@@ -10,11 +11,11 @@ import com.example.demo.model.embeddables.ContactInfo;
 import com.example.demo.model.embeddables.EnrollmentInfo;
 import com.example.demo.model.embeddables.PersonalInfo;
 import com.example.demo.model.entities.Course;
+import com.example.demo.model.entities.Department;
 import com.example.demo.model.entities.Student;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class StudentMapper {
 
@@ -31,7 +32,7 @@ public class StudentMapper {
                 mapContactInfoToDTO(student.getContactInfo()),
                 student.getNationality(),
                 mapEnrollmentInfoToDTO(student.getEnrollmentInfo()),
-                student.getDepartment(),  // Assuming Department is a basic entity without sensitive info
+                mapDepartmentToDTO(student.getDepartment()),  // Assuming Department is a basic entity without sensitive info
                 mapAddressToDTO(student.getAddress()),
                 mapCourses(student.getEnrolledCourses()),
                 student.isScholarshipHolder()
@@ -52,7 +53,7 @@ public class StudentMapper {
                 mapAddressToEntity(studentDTO.getAddressDTO()),  // Not including Address in DTO, setting them as null
                 studentDTO.getNationality(),
                 mapEnrollmentInfoToEntity(studentDTO.getEnrollmentInfoDTO()),
-                studentDTO.getDepartment(),
+                mapDerpartmentToEntity(studentDTO.getDepartmentDTO()),
                 mapCoursesToEntities(studentDTO.getEnrolledCourses()),
                 0.0,  // GPA not included in DTO, setting to default value
                 0,  // Credits not included in DTO, setting to default value
@@ -105,4 +106,11 @@ public class StudentMapper {
         return courses != null ? new ArrayList<>(courses) : null;
     }
 
+    private static Department mapDerpartmentToEntity(DepartmentDTO departmentDTO){
+        return departmentDTO!= null? DepartmentMapper.toEntity(departmentDTO) : null;
+    }
+
+    private static DepartmentDTO mapDepartmentToDTO(Department department){
+        return department!= null? DepartmentMapper.toDTO(department) : null;
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.demo.util;
 
+import com.example.demo.dto.CourseDTO;
 import com.example.demo.dto.department.DepartmentDTO;
 import com.example.demo.model.entities.Course;
 import com.example.demo.model.entities.Department;
@@ -20,7 +21,7 @@ public class DepartmentMapper {
                 department.getStudentCount(),
                 department.getWebsite(),
                 department.getFoundedYear(),
-                coursesToStringList(department.getCoursesOffered()),
+                CourseMapper.listToDTOs(department.getCoursesOffered()),
                 department.getDegreePrograms()
         );
     }
@@ -37,27 +38,9 @@ public class DepartmentMapper {
         department.setDegreePrograms(departmentDTO.getDegreePrograms() != null ? departmentDTO.getDegreePrograms() : new ArrayList<>());
 
         // Convert course names to Course entities
-        department.setCoursesOffered(coursesFromStringList(departmentDTO.getCourses() != null ? departmentDTO.getCourses() : new ArrayList<>()));
-
+        department.setCoursesOffered(CourseMapper.listToEntities(departmentDTO.getCourses()));
         return department;
     }
 
-    private static List<String> coursesToStringList(List<Course> courses) {
-        if (courses == null) {
-            return new ArrayList<>(); // Return an empty list if courses is null
-        }
-        return courses.stream()
-                .map(Course::getName) // Assuming Course has a getName() method
-                .collect(Collectors.toList());
-    }
 
-    private static List<Course> coursesFromStringList(List<String> courseNames) {
-        return courseNames.stream()
-                .map(name -> {
-                    Course course = new Course();
-                    course.setName(name); // Ensure Course entity has a setName() method
-                    return course;
-                })
-                .collect(Collectors.toList());
-    }
 }

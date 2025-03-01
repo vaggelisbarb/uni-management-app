@@ -29,19 +29,19 @@ public class DepartmentController {
     /**
      * Constructs the DepartmentController with the provided DepartmentService.
      *
-     * @param departmentService the department service
+     * @param departmentService the departmentDTO service
      */
     @Autowired
     public DepartmentController(DepartmentService departmentService) {
         this.departmentService = departmentService;
     }
     /**
-     * Creates a new department.
+     * Creates a new departmentDTO.
      *
-     * @param departmentDTO the department data transfer object
-     * @return the created department
+     * @param departmentDTO the departmentDTO data transfer object
+     * @return the created departmentDTO
      */
-    @Operation(summary = "Create a Department", description = "Creates a new department and returns the created department")
+    @Operation(summary = "Create a Department", description = "Creates a new departmentDTO and returns the created departmentDTO")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Department created successfully"),
             @ApiResponse(responseCode = "400", description = "Invalid request data")
@@ -50,17 +50,17 @@ public class DepartmentController {
     public ResponseEntity<DepartmentDTO> createDepartment(@RequestBody DepartmentDTO departmentDTO) throws Exception {
         DepartmentDTO createdDepartment = departmentService.createDepartment(departmentDTO);
         if (createdDepartment == null)
-            throw new Exception("Could not create department");
+            throw new Exception("Could not create departmentDTO");
 
         return new ResponseEntity<>(createdDepartment, HttpStatus.CREATED);
     }
     /**
-     * Retrieves a department by its ID.
+     * Retrieves a departmentDTO by its ID.
      *
-     * @param id the department ID
-     * @return the department if found, otherwise 404 NOT FOUND
+     * @param id the departmentDTO ID
+     * @return the departmentDTO if found, otherwise 404 NOT FOUND
      */
-    @Operation(summary = "Find department by ID", description = "Retrieves a department based on its ID")
+    @Operation(summary = "Find departmentDTO by ID", description = "Retrieves a departmentDTO based on its ID")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Department found"),
             @ApiResponse(responseCode = "404", description = "Department not found")
@@ -74,12 +74,12 @@ public class DepartmentController {
     }
 
     /**
-     * Updates an existing department.
+     * Updates an existing departmentDTO.
      *
-     * @param departmentDTO the department data transfer object
-     * @return the updated department
+     * @param departmentDTO the departmentDTO data transfer object
+     * @return the updated departmentDTO
      */
-    @Operation(summary = "Update an existing department", description = "Updates an existing department and returns the updated entity")
+    @Operation(summary = "Update an existing departmentDTO", description = "Updates an existing departmentDTO and returns the updated entity")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Department updated successfully"),
             @ApiResponse(responseCode = "400", description = "Invalid request data"),
@@ -90,18 +90,18 @@ public class DepartmentController {
         DepartmentDTO updatedDepartment = departmentService.updateDepartment(departmentDTO);
 
         if (updatedDepartment == null) {
-            throw new NoSuchElementException("Could not update department with id : " + departmentDTO.getId());
+            throw new NoSuchElementException("Could not update departmentDTO with id : " + departmentDTO.getId());
         }
         return new ResponseEntity<>(updatedDepartment, HttpStatus.OK);
     }
 
     /**
-     * Deletes a department by ID.
+     * Deletes a departmentDTO by ID.
      *
-     * @param id the department ID
+     * @param id the departmentDTO ID
      * @return 204 NO CONTENT if deleted, otherwise 404 NOT FOUND
      */
-    @Operation(summary = "Delete a department", description = "Deletes a Department by ID")
+    @Operation(summary = "Delete a departmentDTO", description = "Deletes a Department by ID")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Department deleted successfully"),
             @ApiResponse(responseCode = "404", description = "Department not found")
@@ -132,12 +132,12 @@ public class DepartmentController {
     }
 
     /**
-     * Retrieves a department by name.
+     * Retrieves a departmentDTO by name.
      *
-     * @param name the department name
-     * @return the department if found, otherwise 404 NOT FOUND
+     * @param name the departmentDTO name
+     * @return the departmentDTO if found, otherwise 404 NOT FOUND
      */
-    @Operation(summary = "Find department by name", description = "Retrieves a department by its name")
+    @Operation(summary = "Find departmentDTO by name", description = "Retrieves a departmentDTO by its name")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Department found"),
             @ApiResponse(responseCode = "404", description = "Department not found")
@@ -147,7 +147,7 @@ public class DepartmentController {
         Optional<DepartmentDTO> department = departmentService.findByName(name);
         return department
                 .map(departmentDTO -> new ResponseEntity<>(departmentDTO, HttpStatus.OK))
-                .orElseThrow(() -> new NoSuchElementException ("Could not find department with name " + name));
+                .orElseThrow(() -> new NoSuchElementException ("Could not find departmentDTO with name " + name));
     }
 
     /**
@@ -168,9 +168,9 @@ public class DepartmentController {
     }
 
     /**
-     * Retrieves the department with the highest budget.
+     * Retrieves the departmentDTO with the highest budget.
      *
-     * @return the department with the highest budget if found, otherwise 404 NOT FOUND
+     * @return the departmentDTO with the highest budget if found, otherwise 404 NOT FOUND
      */
     @Operation(summary = "Find departments by budget range", description = "Retrieves departments within a specified budget range")
     @ApiResponse(responseCode = "200", description = "List of departments retrieved successfully")
@@ -194,16 +194,16 @@ public class DepartmentController {
         return new ResponseEntity<>(departments, HttpStatus.OK);
     }
 
-    // Get department with the highest budget
-    @Operation(summary = "Get department with the highest budget", description = "Retrieves the department with the highest budget")
+    // Get departmentDTO with the highest budget
+    @Operation(summary = "Get departmentDTO with the highest budget", description = "Retrieves the departmentDTO with the highest budget")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Department retrieved successfully"),
-            @ApiResponse(responseCode = "404", description = "No department found")
+            @ApiResponse(responseCode = "404", description = "No departmentDTO found")
     })
     @GetMapping("/highest-budget")
     public ResponseEntity<DepartmentDTO> getDepartmentWithHighestBudget() throws NoSuchElementException{
         Optional<DepartmentDTO> department = departmentService.findDepartmentWithHighestBudget();
         return department.map(departmentDTO -> new ResponseEntity<>(departmentDTO, HttpStatus.OK))
-                .orElseThrow(() -> new NoSuchElementException("No department found with highest budget"));
+                .orElseThrow(() -> new NoSuchElementException("No departmentDTO found with highest budget"));
     }
 }

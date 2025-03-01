@@ -92,7 +92,7 @@ public class StudentRepositoryIntegrationTest {
     @Test
     public void findByDepartmentTest() {
         testEntityManager.flush();
-        // Fetching the Student object from the database based on the department
+        // Fetching the Student object from the database based on the departmentDTO
         Department csDepartment = testEntityManager.find(Department.class, 1);  // Computer Science Department
         Department eeDepartment = testEntityManager.find(Department.class, 2);  // Electrical Engineering Department
 
@@ -122,15 +122,15 @@ public class StudentRepositoryIntegrationTest {
 /*
     @Test
     public void countStudentsByDepartmentTest() {
-        // Fetching the count of Students from the database based on the department
+        // Fetching the count of Students from the database based on the departmentDTO
         long csCount = studentRepository.countStudentsByDepartment(testEntityManager.find(Department.class, 1L));
-        assertEquals(4, csCount);  // Based on the sample data, 1 student is in the Computer Science department
+        assertEquals(4, csCount);  // Based on the sample data, 1 student is in the Computer Science departmentDTO
 
         long eeCount = studentRepository.countStudentsByDepartment(testEntityManager.find(Department.class, 2L));
-        assertEquals(0, eeCount);  // Based on the sample data, 1 student is in the Electrical Engineering department
+        assertEquals(0, eeCount);  // Based on the sample data, 1 student is in the Electrical Engineering departmentDTO
 
         long meCount = studentRepository.countStudentsByDepartment(testEntityManager.find(Department.class, 3L));
-        assertEquals(0, meCount);  // Based on the sample data, 1 student is in the Mechanical Engineering department
+        assertEquals(0, meCount);  // Based on the sample data, 1 student is in the Mechanical Engineering departmentDTO
     }
 */
     public void setupDatabase() throws IOException {

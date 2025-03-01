@@ -29,7 +29,7 @@ public class Professor {
     // Educational Information
     @ManyToOne
     @JoinColumn(name = "department_id")
-    private Department department;  // Professor's department
+    private Department department;  // Professor's departmentDTO
 
     private String fieldOfExpertise;    // Area of expertise
     private String degree;  // Highest degree earned
@@ -37,15 +37,21 @@ public class Professor {
     // Courses Information
     private int yearsOfExperience;  // Years of teaching experience
 
-    @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "professor",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private List<Course> coursesTaught; // Courses previously taught
 
-    @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "professor",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private List<Course> currentCourses;    // Courses currently teaching
 
     // Publications Information
 
-    @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "professor",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private List<Publication> publications; // List of publications
     private String researchArea;    // Research focus area
     /*

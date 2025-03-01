@@ -14,9 +14,9 @@ import java.util.Optional;
 public interface DepartmentRepository extends JpaRepository<Department, Long> {
 
     /**
-     * Find a department by name (derived query method)
+     * Find a departmentDTO by name (derived query method)
      *
-     * @param name the name of the department
+     * @param name the name of the departmentDTO
      * @return {@link Optional} the Department object if found
      * @see Optional
      * @see Department
@@ -73,7 +73,7 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
     @Query("SELECT d FROM Department d WHERE d.address.city = :city")
     List<Department> findByCity(@Param("city") String city);
 
-    // Find the department with the highest budget
+    // Find the departmentDTO with the highest budget
     @Query("SELECT d FROM Department d ORDER BY d.budget DESC LIMIT 1")
     Optional<Department> findTopByOrderByBudgetDesc();
 

@@ -61,7 +61,7 @@ public class Course {
             joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "prerequisite_id"))
     private List<Course> prerequisites; // List of prerequisite courses
-    private boolean isElective; // Whether the course is elective or required
+    private boolean elective; // Whether the course is elective or required
 
     // Assessments and materials
     private String gradingPolicy;   // e.g., Exams 50%, Assignments 30%, Participation 20%

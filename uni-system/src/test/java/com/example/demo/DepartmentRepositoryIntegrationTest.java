@@ -179,7 +179,7 @@ public class DepartmentRepositoryIntegrationTest {
     @Test
     public void findByFoundedYearAfter_ExactYearTest() {
         List<Department> departments = departmentRepository.findByFoundedYearAfter(1985);
-        assertTrue(departments.isEmpty()); // No department is founded after 1985 in test data
+        assertTrue(departments.isEmpty()); // No departmentDTO is founded after 1985 in test data
     }
 
     @Test

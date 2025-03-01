@@ -24,14 +24,14 @@ public class DepartmentService {
         this.departmentRepository = departmentRepository;
     }
 
-    // Create a new department
+    // Create a new departmentDTO
     public DepartmentDTO createDepartment(@Valid DepartmentDTO departmentDTO) {
         Department department = DepartmentMapper.toEntity(departmentDTO);
         Department savedDepartment = departmentRepository.save(department);
         return DepartmentMapper.toDTO(savedDepartment);
     }
 
-    // Delete a department by id
+    // Delete a departmentDTO by id
     public void deleteDepartment(Long id) {
         if (!departmentRepository.existsById(id)) {
             throw new RuntimeException("Department not found with id: " + id);
@@ -39,7 +39,7 @@ public class DepartmentService {
         departmentRepository.deleteById(id);
     }
 
-    // Update department
+    // Update departmentDTO
     public DepartmentDTO updateDepartment(@Valid DepartmentDTO departmentDTO) {
         Optional<Department> departmentOpt = departmentRepository.findById(departmentDTO.getId());
         if (departmentOpt.isPresent()) {
@@ -57,7 +57,7 @@ public class DepartmentService {
                 .map(DepartmentMapper::toDTO);
     }
 
-    // Find department by name
+    // Find departmentDTO by name
     public Optional<DepartmentDTO> findByName(String name) {
         return departmentRepository.findByName(name)
                 .map(DepartmentMapper::toDTO);
@@ -95,13 +95,13 @@ public class DepartmentService {
                 .collect(Collectors.toList());
     }
 
-    // Find department with the highest budget
+    // Find departmentDTO with the highest budget
     public Optional<DepartmentDTO> findDepartmentWithHighestBudget() {
         return departmentRepository.findTopByOrderByBudgetDesc()
                 .map(DepartmentMapper::toDTO);
     }
 
-    // Check if a department exists by id
+    // Check if a departmentDTO exists by id
     public boolean existsById(Long id) {
         return departmentRepository.existsById(id);
     }
