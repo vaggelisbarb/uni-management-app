@@ -2,6 +2,7 @@ package com.example.demo.dto;
 
 
 import com.example.demo.dto.department.DepartmentDTO;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,13 +32,13 @@ public class CourseDTO {
     @Schema(description = "Level of the course (Undergraduate/Postgraduate)", example = "Undergraduate")
     private String level;
 
-    @Schema(description = "Professor teaching the course")
+    @Schema(description = "Professor teaching the course", implementation = ProfessorDTO.class)
     private ProfessorDTO professorDTO;
 
-    @Schema(description = "Department offering the course")
+    @Schema(description = "Department offering the course", implementation = DepartmentDTO.class)
     private DepartmentDTO departmentDTO;
 
-    @Schema(description = "Schedule details of the course")
+    @Schema(description = "Schedule details of the course", implementation = ScheduleDTO.class)
     private ScheduleDTO scheduleDTO;
 
     @Schema(description = "Indicates whether the course is elective", example = "false")

@@ -1,6 +1,9 @@
 package com.example.demo.dto.department;
 
 import com.example.demo.dto.CourseDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -40,6 +43,8 @@ public class DepartmentDTO {
     @Schema(description = "Year the department was founded", example = "1985")
     private int foundedYear;           // Year founded
 
+    @JsonIgnore  // Prevents infinite recursion
+    @ArraySchema(schema = @Schema(implementation = CourseDTO.class))
     @Schema(description = "List of course names offered by the department")
     private List<CourseDTO> courses;      // Course names (instead of full Course objects)
 

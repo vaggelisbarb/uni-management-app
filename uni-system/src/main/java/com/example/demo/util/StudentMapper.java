@@ -1,5 +1,6 @@
 package com.example.demo.util;
 
+import com.example.demo.dto.CourseDTO;
 import com.example.demo.dto.common.AddressDTO;
 import com.example.demo.dto.common.ContactInfoDTO;
 import com.example.demo.dto.common.PersonalInfoDTO;
@@ -34,7 +35,7 @@ public class StudentMapper {
                 mapEnrollmentInfoToDTO(student.getEnrollmentInfo()),
                 mapDepartmentToDTO(student.getDepartment()),  // Assuming Department is a basic entity without sensitive info
                 mapAddressToDTO(student.getAddress()),
-                mapCourses(student.getEnrolledCourses()),
+                mapCoursesToDTOs(student.getEnrolledCourses()),
                 student.isScholarshipHolder()
         );
     }
@@ -102,8 +103,22 @@ public class StudentMapper {
         return courses != null ? new ArrayList<>(courses) : null;
     }
 
-    private static List<Course> mapCoursesToEntities(List<Course> courses) {
-        return courses != null ? new ArrayList<>(courses) : null;
+    private static List<Course> mapCoursesToEntities(List<CourseDTO> coursesDTO) {
+        List<Course> courseEntities = new ArrayList<>();
+        for (CourseDTO dto : coursesDTO) {
+            courseEntities.add(CourseMapper.toEntity(dto));
+        }
+
+        return courseEntities;
+    }
+
+    private static List<CourseDTO> mapCoursesToDTOs(List<Course> courses) {
+        List<CourseDTO> courseDTOs = new ArrayList<>();
+        for (Course course : courses) {
+            courseDTOs.add(CourseMapper.toDTO(course));
+        }
+
+        return courseDTOs;
     }
 
     private static Department mapDerpartmentToEntity(DepartmentDTO departmentDTO){
